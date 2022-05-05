@@ -16,4 +16,8 @@ export class UserService {
     const newUser = this.userRepository.create({ ...createUserDto, password });
     return this.userRepository.save(newUser);
   }
+
+  findUserByUserName(username: string) {
+    return this.userRepository.findOne({ where: { username } });
+  }
 }
