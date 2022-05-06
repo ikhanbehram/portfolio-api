@@ -9,7 +9,6 @@ export class AboutService {
   constructor(
     @InjectRepository(About)
     private readonly aboutRepository: Repository<About>,
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
   async createAbout(createAboutDto: CreateAboutDto) {
