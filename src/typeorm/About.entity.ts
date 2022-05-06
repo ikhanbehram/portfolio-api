@@ -7,6 +7,7 @@ export class About {
 
   @Column({
     nullable: false,
+    unique: true,
   })
   fk_userId: string;
   @Column({

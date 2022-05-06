@@ -12,8 +12,22 @@ export class AboutService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  createAbout(createAboutDto: CreateAboutDto) {
-    const newAbout = this.aboutRepository.create({ ...createAboutDto });
+  async createAbout(createAboutDto: CreateAboutDto) {
+    const aboutExists = await this.aboutRepository.findOne({
+      where: { fk_userId: createAboutDto.fk_userId },
+    });
+
+    if (aboutExists) {
+      const updateAbout = this.aboutRepository.create(aboutExists);
+      return this.aboutRepository.save({
+        ...updateAbout,
+        fk_userId: createAboutDto.fk_userId,
+        intro: createAboutDto.intro,
+        headline: createAboutDto.headline,
+      });
+    }
+
+    const newAbout = this.aboutRepository.create(createAboutDto);
     return this.aboutRepository.save(newAbout);
   }
 
