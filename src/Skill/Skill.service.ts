@@ -33,4 +33,12 @@ export class SkillService {
       where: { fk_userId: userId },
     });
   }
+
+  async updateSkill() {
+    return 'UPDATING SKILL';
+  }
+
+  async deleteSkill() {
+    return 'DELETING SKILL';
+  }
 }

@@ -33,4 +33,12 @@ export class AboutService {
   getUserAbout(id: string) {
     return this.aboutRepository.findOne({ where: { fk_userId: id } });
   }
+
+  updateUserAbout() {
+    return 'Updating User About';
+  }
+
+  deleteUserAbout() {
+    return 'Deleting User About';
+  }
 }

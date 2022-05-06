@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AboutService } from './About.service';
@@ -24,5 +33,17 @@ export class AboutController {
   @Get('/:userId')
   getUserAbout(@Param('userId') id: string) {
     return this.aboutService.getUserAbout(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('/:aboutId')
+  updateAbout() {
+    return this.aboutService.updateUserAbout();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:aboutId')
+  deleteAbout() {
+    return this.aboutService.deleteUserAbout();
   }
 }
