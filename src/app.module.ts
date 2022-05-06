@@ -6,10 +6,13 @@ import entities from './typeorm';
 import { UserModule } from './user/User.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { AboutModule } from './about/About.module';
 
 @Module({
   imports: [
     UserModule,
+    AuthModule,
+    AboutModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -20,7 +23,6 @@ import { ConfigModule } from '@nestjs/config';
       entities,
       synchronize: true,
     }),
-    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
