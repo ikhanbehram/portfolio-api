@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -17,14 +18,11 @@ export class SkillController {
   constructor(private skillService: SkillService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post('/:userId')
-  createNewSkill(
-    @Body() createSkillDto: CreateSkillDto,
-    @Param('userId') id: string,
-  ) {
+  @Post()
+  createNewSkill(@Body() createSkillDto: CreateSkillDto, @Req() req) {
     return this.skillService.createNewSkill({
       ...createSkillDto,
-      fk_userId: id,
+      fk_user_id: req.user.username,
     });
   }
 
@@ -35,13 +33,16 @@ export class SkillController {
 
   @UseGuards(JwtAuthGuard)
   @Put('/:skillId')
-  updateSkill() {
-    return this.skillService.updateSkill();
+  updateSkill(
+    @Param('skillId') id: number,
+    @Body() createSkillDto: CreateSkillDto,
+  ) {
+    return this.skillService.updateSkill(id, createSkillDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('/:skillId')
-  deleteSkill() {
-    this.skillService.deleteSkill();
+  deleteSkill(@Param('skillId') id: number) {
+    this.skillService.deleteSkill(id);
   }
 }

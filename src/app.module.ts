@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { AboutModule } from './about/About.module';
 import { SkillModule } from './Skill/Skill.module';
+import { ProjectModule } from './project/Project.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { SkillModule } from './Skill/Skill.module';
     AuthModule,
     AboutModule,
     SkillModule,
+    ProjectModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',

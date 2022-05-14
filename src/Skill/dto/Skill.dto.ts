@@ -1,9 +1,9 @@
 import { MaxLength } from 'class-validator';
 
 export class CreateSkillDto {
-  fk_userId: string;
+  fk_user_id: string;
 
-  @MaxLength(150)
+  @MaxLength(2000)
   name: string;
 
   @MaxLength(20)

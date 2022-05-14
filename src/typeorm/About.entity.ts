@@ -3,16 +3,14 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class About {
   @PrimaryGeneratedColumn()
-  aboutId: number;
+  about_id: number;
 
   @Column({
     nullable: false,
     unique: true,
   })
-  fk_userId: string;
-  @Column({
-    nullable: false,
-  })
+  fk_user_id: string;
+
   @Column({
     length: 400,
   })

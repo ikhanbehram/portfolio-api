@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Skill } from 'src/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getConnection } from 'typeorm';
 import { CreateSkillDto } from './dto/Skill.dto';
 
 @Injectable()
@@ -30,15 +30,27 @@ export class SkillService {
 
   async getSkills(userId: string) {
     return this.skillRepository.find({
-      where: { fk_userId: userId },
+      where: { fk_user_id: userId },
     });
   }
 
-  async updateSkill() {
-    return 'UPDATING SKILL';
+  async updateSkill(id: number, createSkillDto: CreateSkillDto) {
+    await getConnection()
+      .createQueryBuilder()
+      .update(Skill)
+      .set({
+        name: createSkillDto.name,
+        skillMeasure: createSkillDto.skillMeasure,
+      })
+      .where({
+        skill_id: id,
+      })
+      .execute();
+    return 'SKILL UPDATED';
   }
 
-  async deleteSkill() {
-    return 'DELETING SKILL';
+  async deleteSkill(id: number) {
+    await this.skillRepository.delete(id);
+    return 'SKILL DELETED';
   }
 }

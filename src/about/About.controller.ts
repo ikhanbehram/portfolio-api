@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,13 +19,10 @@ export class AboutController {
   constructor(private aboutService: AboutService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post('/:userId')
-  createAbout(
-    @Body() createAboutDto: CreateAboutDto,
-    @Param('userId') id: string,
-  ) {
+  @Post()
+  createAbout(@Body() createAboutDto: CreateAboutDto, @Req() req) {
     const payload = {
-      fk_userId: id,
+      fk_user_id: req.user.username,
       ...createAboutDto,
     };
     return this.aboutService.createAbout(payload);
@@ -37,13 +35,16 @@ export class AboutController {
 
   @UseGuards(JwtAuthGuard)
   @Put('/:aboutId')
-  updateAbout() {
-    return this.aboutService.updateUserAbout();
+  updateAbout(
+    @Param('aboutId') id: number,
+    @Body() createAboutDto: CreateAboutDto,
+  ) {
+    return this.aboutService.updateUserAbout(id, createAboutDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('/:aboutId')
-  deleteAbout() {
-    return this.aboutService.deleteUserAbout();
+  deleteAbout(@Param('aboutId') id: number) {
+    return this.aboutService.deleteUserAbout(id);
   }
 }

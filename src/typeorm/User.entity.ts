@@ -4,7 +4,7 @@ import { About } from '.';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  userId: number;
+  user_id: number;
 
   @Column({
     nullable: false,

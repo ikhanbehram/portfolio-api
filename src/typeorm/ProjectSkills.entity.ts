@@ -1,19 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Skill {
+export class projectSkills {
   @PrimaryGeneratedColumn()
-  skill_id: number;
+  id: number;
 
   @Column({
     nullable: false,
+    unique: true,
   })
-  fk_user_id: string;
-
+  fk_project_id: number;
   @Column({
-    length: 200,
+    length: 100,
   })
   name: string;
-  @Column({})
-  skillMeasure: number;
 }
