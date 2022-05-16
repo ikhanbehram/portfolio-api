@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ProjectSkills } from './ProjectSkills.entity';
 
 @Entity()
 export class Project {
@@ -7,9 +8,8 @@ export class Project {
 
   @Column({
     nullable: false,
-    unique: true,
   })
-  fk_user_id: number;
+  fk_user_id: string;
   @Column({
     length: 100,
   })
@@ -22,4 +22,15 @@ export class Project {
   live_demo_link: string;
   @Column()
   repo_link: string;
+  @Column()
+  image: string;
+
+  @OneToMany(
+    (type) => ProjectSkills,
+    (projectSkills) => projectSkills.project,
+    {
+      cascade: true,
+    },
+  )
+  skills: [];
 }
