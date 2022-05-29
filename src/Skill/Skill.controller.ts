@@ -20,10 +20,14 @@ export class SkillController {
   @UseGuards(JwtAuthGuard)
   @Post()
   createNewSkill(@Body() createSkillDto: CreateSkillDto, @Req() req) {
-    return this.skillService.createNewSkill({
-      ...createSkillDto,
-      fk_user_id: req.user.username,
-    });
+    if (createSkillDto && createSkillDto.skillMeasure > 100) {
+      throw new Error('Skill measure must not be greater than 100');
+    } else {
+      return this.skillService.createNewSkill({
+        ...createSkillDto,
+        fk_user_id: req.user.username,
+      });
+    }
   }
 
   @Get('/:userId')
