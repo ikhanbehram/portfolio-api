@@ -6,6 +6,6 @@ export class CreateSkillDto {
   @MaxLength(2000)
   name: string;
 
-  @MaxLength(20)
+  @MaxLength(100)
   skillMeasure: number;
 }

@@ -11,5 +11,5 @@ export class CreateProjectDto {
   live_demo_link: string;
   repo_link: string;
   image: any;
-  skills: [];
+  skills;
 }

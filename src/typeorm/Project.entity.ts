@@ -32,5 +32,5 @@ export class Project {
       cascade: true,
     },
   )
-  skills: [];
+  skills: ProjectSkills[];
 }

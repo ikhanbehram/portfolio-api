@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AboutService } from './About.service';
 import { CreateAboutDto } from './dto/About.dto';
