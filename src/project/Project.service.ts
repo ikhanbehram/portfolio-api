@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project, ProjectSkills, Skill } from 'src/typeorm';
-import { Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/Project.dto';
 
 @Injectable()
@@ -39,5 +39,19 @@ export class ProjectService {
       where: { fk_user_id },
       relations: ['skills'],
     });
+  }
+
+  async updateProject(id: number, project: CreateProjectDto) {
+    return await getConnection().createQueryBuilder().update(Project).set({
+      title: project.title,
+      description: project.description,
+      live_demo_link: project.live_demo_link,
+      repo_link: project.repo_link,
+      image: project.image,
+    });
+  }
+
+  async deleteProject(id: number) {
+    return await this.projectRepository.delete(id);
   }
 }
