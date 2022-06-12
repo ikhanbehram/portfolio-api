@@ -74,9 +74,10 @@ export class ProjectController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Put()
-  updateAbout() {}
-
+  @Put(':id')
+  updateAbout(@Param('id') id: number, @Body() project: CreateProjectDto) {
+    return this.projectService.updateProject(id, project);
+  }
   @UseGuards(JwtAuthGuard)
   @Delete()
   deleteAbout() {}
